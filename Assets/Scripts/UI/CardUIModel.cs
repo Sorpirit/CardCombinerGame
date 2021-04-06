@@ -11,18 +11,22 @@ namespace UI
         public string Lable => _lable;
         public Card Parent => _parent;
         public Sprite Icon => _icon;
-        
+
+        public float Rearty => _rearty;
+
         private Sprite _image;
         private Sprite _icon;
         private string _lable;
         private Card _parent;
+        private float _rearty;
 
-        public CardUIModel(Sprite image, Sprite icon, string label, Card parent)
+        public CardUIModel(Sprite image, Sprite icon, string label,float rearty, Card parent)
         {
             _image = image;
             _parent = parent;
             _icon = icon;
             _lable = label;
+            _rearty = rearty;
         }
 
         public bool Equals(CardUIModel other)

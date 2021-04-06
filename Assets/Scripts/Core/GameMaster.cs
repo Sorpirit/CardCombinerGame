@@ -15,6 +15,7 @@ namespace Core
         public int Score => _score;
         public bool IsGameEnded => _deck.isEmpty;
         public bool IsTurnFinished => _isCardDroped && _isCardPicked;
+        public int CardCount => _deck.CardsLeft;
         
         private Deck _deck;
         private CardCombinationManager _combinationManager;

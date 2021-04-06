@@ -15,16 +15,28 @@ namespace Models
         {
             Card.Empty = DefaultEmpty;
             Deck deck = new Deck();
+            int cardCount = CountCards();
             foreach (var card in cards)
             {
                 for (int i = 0; i < card.Quantity; i++)
                 {
+                    card.Card.Rearty = (float) card.Quantity / cardCount;
                     deck.AddCard(card.Card.ExportModel());
                 }
                 
             }
 
             return deck;
+        }
+
+        private int CountCards()
+        {
+            int count = 0;
+            foreach (var card in cards)
+            {
+                count += card.Quantity;
+            }
+            return count;
         }
 
         [Serializable]

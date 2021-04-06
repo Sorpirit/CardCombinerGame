@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour
         UpdateHandVisuals();
         UpdateTabelVisuals();
         UpdateScore();
-        
+        UpdateCardCount();
         
     }
 
@@ -95,6 +95,7 @@ public class GameController : MonoBehaviour
         if (_master.NextTurn())
         {
             UpdateTabelVisuals();
+            UpdateCardCount();
         }
         else if(_master.IsGameEnded)
         {
@@ -125,6 +126,11 @@ public class GameController : MonoBehaviour
     private void UpdateScore()
     {
         ui.UpdateScores(_master.Score);
+    }
+
+    private void UpdateCardCount()
+    {
+        ui.UpdateCardCount(_master.CardCount);
     }
 
     private void ShowCardCombo(int[] intCardIndexes)

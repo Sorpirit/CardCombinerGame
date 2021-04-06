@@ -11,6 +11,7 @@ namespace UI
     {
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text label;
+        [SerializeField] private TMP_Text reartyLabel;
         [SerializeField] private Image higlight;
         [SerializeField] private RectTransform cardBody;
 
@@ -57,6 +58,7 @@ namespace UI
             UpdateCardModel(model);
 
             higlight.gameObject.SetActive(false);
+            
         }
 
 
@@ -64,11 +66,18 @@ namespace UI
         {
             _model = model;
             if (model.Parent == Card.Empty)
+            {
                 icon.enabled = false;
-            else
-                icon.enabled = true;
+                icon.sprite = model.Image;
+                label.text = model.Lable;
+                reartyLabel.text = "";
+                return;
+            }
+
+            icon.enabled = true;
             icon.sprite = model.Image;
             label.text = model.Lable;
+            reartyLabel.text = ((int) (model.Rearty * 100)) + "%";
             CancelAllTweens();
         }
 

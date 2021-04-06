@@ -13,6 +13,7 @@ namespace UI
         [SerializeField] private CardPicker _picker;
         [SerializeField] private CardContainer cardPrefab;
         [SerializeField] private TMP_Text score;
+        [SerializeField] private TMP_Text cardsCountLabel;
 
         [SerializeField] private int dropLine;
         [SerializeField] private int handLine;
@@ -95,6 +96,11 @@ namespace UI
         public void UpdateScores(int val)
         {
             score.text = val.ToString();
+        }
+
+        public void UpdateCardCount(int val)
+        {
+            cardsCountLabel.text = val.ToString();
         }
 
         public void UpdateCombinationHigliht(CardUIModel uiModel)
