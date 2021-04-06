@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Models;
+using UI;
+using UnityEngine;
 
 namespace Core
 {
@@ -108,16 +111,30 @@ namespace Core
             bool containsCombination = _combinationManager.ContainsCombination(out int points,out cardCombosIndexes, _hand.ToArray());
             if (containsCombination)
             {
-                ClearHand();
+                ClearHand(cardCombosIndexes);
                 _score += points;
             }
 
             return containsCombination;
         }
         
-        private void ClearHand()
+        private void ClearHand(int[] indexes = null)
         {
-            _hand.Clear();
+            if(indexes == null)
+                _hand.Clear();
+            else
+            {
+                List<CardModel> newHand = new List<CardModel>();
+                for (var i = 0; i < _hand.Count; i++)
+                {
+                    if (!indexes.Contains(i))
+                    {
+                        newHand.Add(_hand[i]);
+                    }
+                }
+
+                _hand = newHand;
+            }
         }
         
         private void GenerateTable()
