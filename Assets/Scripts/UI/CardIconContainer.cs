@@ -17,14 +17,7 @@ namespace UI
 
         public void HighlightIcon(bool state)
         {
-            if (state)
-            {
-                higlight.DOFillAmount(1, .3f);
-            }
-            else
-            {
-                higlight.DOFillAmount(0, .3f);
-            }
+            higlight.DOFillAmount(state ? 1 : 0, .3f);
         }
     }
 }

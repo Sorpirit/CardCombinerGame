@@ -5,16 +5,28 @@ namespace Core
 {
     public class GameMaster
     {
+        public readonly int HandSize;
+        public readonly int TableSize;
+        
+        public List<CardModel> Hand => _hand;
+
+        public CardModel[] Table => _table;
+
+        public int Score => _score;
+        public bool IsGameEnded => _deck.isEmpty;
+        public bool IsTurnFinished => _isCardDroped && _isCardPicked;
+        
         private Deck _deck;
         private CardCombinationManager _combinationManager;
 
-        private List<CardModel> hand;
-        private CardModel[] table;
+        private List<CardModel> _hand;
+        private CardModel[] _table;
 
-        private int score;
-
-        public readonly int HandSize;
-        public readonly int TableSize;
+        private int _score;
+        
+        private bool _isCardDroped;
+        private bool _isCardPicked;
+        
 
         public GameMaster(GamePreset preset)
         {
@@ -24,36 +36,22 @@ namespace Core
             HandSize = preset.HandSize;
             TableSize = preset.TabelSize;
             
-            hand = new List<CardModel>(HandSize);
-            table = new CardModel[TableSize];
+            _hand = new List<CardModel>(HandSize);
+            _table = new CardModel[TableSize];
 
             DelfaultTabel();
         }
-
-        public List<CardModel> Hand => hand;
-
-        public CardModel[] Table => table;
-
-        public int Score => score;
-        public bool isGameEnded => _deck.isEmpty;
-        public bool isTurnFinished => isCardDroped && isCardPicked;
         
-        private bool isCardDroped;
-        private bool isCardPicked;
-        
-
         public void StartGame()
         {
             _deck.Shuffle();
-            _deck.Shuffle();
-            _deck.Shuffle();
 
-            score = 0;
-            isCardDroped = false;
-            isCardPicked = false;
+            _score = 0;
+            _isCardDroped = false;
+            _isCardPicked = false;
 
             ClearHand();
-            hand.Add(_deck.Pick());
+            _hand.Add(_deck.Pick());
             
             DelfaultTabel();
             GenerateTable();
@@ -67,50 +65,50 @@ namespace Core
         public bool NextTurn()
         {
 
-            if (!isTurnFinished || isGameEnded)
+            if (!IsTurnFinished || IsGameEnded)
                 return false;
 
             GenerateTable();
                 
-            isCardDroped = false;
-            isCardPicked = false;
+            _isCardDroped = false;
+            _isCardPicked = false;
 
             return true;
         }
         
         public bool PickCard(int i)
         {
-            if (isCardPicked || i >= TableSize || i < 0 || table[i].Equals(CardModel.Empty))
+            if (_isCardPicked || i >= TableSize || i < 0 || _table[i].Equals(CardModel.Empty))
                 return false;
             
-            if (hand.Count == HandSize)
-                hand.RemoveAt(0);
+            if (_hand.Count == HandSize)
+                _hand.RemoveAt(0);
             
-            hand.Add(table[i]);
-            table[i] = CardModel.Empty;
-            isCardPicked = true;
+            _hand.Add(_table[i]);
+            _table[i] = CardModel.Empty;
+            _isCardPicked = true;
             
             return true;
         }
 
         public bool DropCard(int i)
         {
-            if (isCardDroped || i >= TableSize || i < 0 || table[i].Equals(CardModel.Empty))
+            if (_isCardDroped || i >= TableSize || i < 0 || _table[i].Equals(CardModel.Empty))
                 return false;
 
-            table[i] = CardModel.Empty;
-            isCardDroped = true;
+            _table[i] = CardModel.Empty;
+            _isCardDroped = true;
             
             return true;
         }
 
         public bool LookForCombinations(out int[] cardCombosIndexes)
         {
-            bool containsCombination = _combinationManager.ContainsCombination(out int points,out cardCombosIndexes, hand.ToArray());
+            bool containsCombination = _combinationManager.ContainsCombination(out int points,out cardCombosIndexes, _hand.ToArray());
             if (containsCombination)
             {
                 ClearHand();
-                score += points;
+                _score += points;
             }
 
             return containsCombination;
@@ -118,26 +116,26 @@ namespace Core
         
         private void ClearHand()
         {
-            hand.Clear();
+            _hand.Clear();
         }
         
         private void GenerateTable()
         {
-            for (int i = 0; i < table.Length; i++)
+            for (int i = 0; i < _table.Length; i++)
             {
                 if(_deck.isEmpty)
                     return;
                 
-                if(table[i].Equals(CardModel.Empty))
-                    table[i] = _deck.Pick();
+                if(_table[i].Equals(CardModel.Empty))
+                    _table[i] = _deck.Pick();
             }
         }
 
         private void DelfaultTabel()
         {
-            for (int i = 0; i < table.Length; i++)
+            for (int i = 0; i < _table.Length; i++)
             {
-                table[i] = CardModel.Empty;
+                _table[i] = CardModel.Empty;
             }
         }
         

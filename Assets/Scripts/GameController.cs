@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
 
     private void NextTurn()
     {
-        if(!_master.isTurnFinished)
+        if(!_master.IsTurnFinished)
             return;
 
         bool containsCombos = _master.LookForCombinations(out int[] cardCombinationIndexes);
@@ -96,7 +96,7 @@ public class GameController : MonoBehaviour
         {
             UpdateTabelVisuals();
         }
-        else if(_master.isGameEnded)
+        else if(_master.IsGameEnded)
         {
             Debug.Log("Game finished");
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Threading.Tasks;
 using DG.Tweening;
 using Models;
 using TMPro;
@@ -14,18 +13,17 @@ namespace UI
         [SerializeField] private TMP_Text label;
         [SerializeField] private Image higlight;
         [SerializeField] private RectTransform cardBody;
-        
-        private CardUIModel _model;
-        
-        private Vector2 defaultPosition => transform.position;
-        private bool dropIndicator;
-        private bool grabIndicator;
 
         public RectTransform RectTransform => icon.rectTransform;
         public CardUIModel Model => _model;
         public bool IsCardEmpty => _model.Parent == Card.Empty;
         public RectTransform Body => cardBody;
         
+        private CardUIModel _model;
+        private Vector2 defaultPosition => transform.position;
+        private bool dropIndicator;
+        private bool grabIndicator;
+
         public bool DropIndicator
         {
             set
@@ -35,6 +33,7 @@ namespace UI
                     dropIndicator = true;
                     StartCoroutine(ShowDropIndicator());
                 }
+
                 dropIndicator = value;
             }
         }
@@ -48,21 +47,19 @@ namespace UI
                     grabIndicator = true;
                     StartCoroutine(ShowGrabIndicator());
                 }
+
                 grabIndicator = value;
             }
         }
 
         public void InitCointainer(CardUIModel model)
         {
-            //defaultPosition = transform.position;
-            
             UpdateCardModel(model);
-            
+
             higlight.gameObject.SetActive(false);
         }
-        
-        
-        
+
+
         public void UpdateCardModel(CardUIModel model)
         {
             _model = model;
@@ -86,24 +83,28 @@ namespace UI
         {
             higlight.gameObject.SetActive(true);
             higlight.rectTransform.localScale = Vector3.zero;
-            higlight.color = new Color(0,0,0,0);
-            
+            higlight.color = new Color(0, 0, 0, 0);
+
             Sequence s = DOTween.Sequence();
-            s.Append(cardBody.transform.DOMove(new Vector3(cardBody.position.x,comboAnchor.y), .3f).SetEase(Ease.OutQuart));
+            s.Append(cardBody.transform.DOMove(new Vector3(cardBody.position.x, comboAnchor.y), .3f)
+                .SetEase(Ease.OutQuart));
             s.Append(cardBody.transform.DOMove(comboAnchor, .4f).SetEase(Ease.OutCubic));
             s.Append(higlight.rectTransform.DOScale(Vector3.one * .8f, .3f));
             s.Join(higlight.DOColor(Color.white, .3f));
-            s.Join(cardBody.transform.DOShakePosition(.3f,new Vector3(1,1,0)*30,60));
+            s.Join(cardBody.transform.DOShakePosition(.3f, new Vector3(1, 1, 0) * 30, 60));
             s.Append(icon.DOFade(0, .26f));
+            s.SetAutoKill(false);
             yield return s.WaitForCompletion();
+            s.Rewind();
+            s.Kill();
+            
             cardBody.anchoredPosition = Vector3.zero;
             cardBody.rotation = Quaternion.identity;
             higlight.gameObject.SetActive(false);
-            icon.color = Color.white;
         }
 
 
-        public Tween PlayeApearAnimation(Vector2 startPos,float duration)
+        public Tween PlayeApearAnimation(Vector2 startPos, float duration)
         {
             cardBody.position = startPos;
             cardBody.rotation = Quaternion.Euler(Vector3.forward * 45);
@@ -114,7 +115,7 @@ namespace UI
             s.Join(move);
             return s;
         }
-        
+
         private IEnumerator ShowDropIndicator()
         {
             icon.DOFade(.1f, .3f);
@@ -122,6 +123,7 @@ namespace UI
             {
                 yield return null;
             }
+
             icon.DOFade(1, .3f);
         }
 
@@ -132,7 +134,7 @@ namespace UI
             {
                 yield return null;
             }
-            
+
             icon.transform.DOScale(Vector3.one, .14f);
         }
 
@@ -142,6 +144,5 @@ namespace UI
             icon.DOComplete();
             icon.transform.DOComplete();
         }
-        
     }
 }

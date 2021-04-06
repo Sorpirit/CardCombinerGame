@@ -5,18 +5,17 @@ namespace UI
 {
     public struct CardUIModel
     {
+        public static CardUIModel Empty => Card.Empty.ExportUI();
+
+        public Sprite Image => _image;
+        public string Lable => _lable;
+        public Card Parent => _parent;
+        public Sprite Icon => _icon;
+        
         private Sprite _image;
         private Sprite _icon;
         private string _lable;
         private Card _parent;
-
-        public static CardUIModel Empty => Card.Empty.ExportUI();
-        
-        public Sprite Image => _image;
-        public string Lable => _lable;
-        public Card Parent => _parent;
-
-        public Sprite Icon => _icon;
 
         public CardUIModel(Sprite image, Sprite icon, string label, Card parent)
         {
