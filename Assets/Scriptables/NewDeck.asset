@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47aa70542160469d8f137c8a2bf46528, type: 3}
+  m_Name: NewDeck
+  m_EditorClassIdentifier: 
+  DefaultEmpty: {fileID: 11400000, guid: 2885ba24063a9c14dbf74fd8d334b352, type: 2}
+  cards:
+  - card: {fileID: 11400000, guid: f1a606e22a8074f47a9b9f126d9fcdf5, type: 2}
+    quantity: 5
+  - card: {fileID: 11400000, guid: 72bcb06e2291da5459b2f671c7b9fa00, type: 2}
+    quantity: 3
+  - card: {fileID: 11400000, guid: b509d966c3b9e014ab90424c7e139c88, type: 2}
+    quantity: 4
+  - card: {fileID: 11400000, guid: b1048c94d07f52a418a9e80e698871ba, type: 2}
+    quantity: 2
+  - card: {fileID: 11400000, guid: be871426c61b3ee4789b1eee328f1213, type: 2}
+    quantity: 5
+  - card: {fileID: 11400000, guid: e5a266781704ab640a6be8303dd65d32, type: 2}
+    quantity: 4
+  - card: {fileID: 11400000, guid: 193426d9c3645d84fb9691fd5e2a1f41, type: 2}
+    quantity: 2
+  - card: {fileID: 11400000, guid: 6e419ede6db467a44ab230b1a6491a1b, type: 2}
+    quantity: 1
