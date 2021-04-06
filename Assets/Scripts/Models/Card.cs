@@ -12,6 +12,7 @@ namespace Models
         [SerializeField] private Sprite image;
         [SerializeField] private Sprite icon;
         public float Rearty { get; set; }
+        public int QuantiyInDeck { get; set; }
         
         public static Card Empty;
         
@@ -22,7 +23,7 @@ namespace Models
 
         public CardUIModel ExportUI()
         {
-            return new CardUIModel(image,icon,label,Rearty,this);
+            return new CardUIModel(image,icon,label,Rearty,QuantiyInDeck,this);
         }
     }
 }

@@ -14,19 +14,23 @@ namespace UI
 
         public float Rearty => _rearty;
 
+        public int QuanitytyInDeck => _quanitytyInDeck;
+
         private Sprite _image;
         private Sprite _icon;
         private string _lable;
         private Card _parent;
         private float _rearty;
+        private int _quanitytyInDeck;
 
-        public CardUIModel(Sprite image, Sprite icon, string label,float rearty, Card parent)
+        public CardUIModel(Sprite image, Sprite icon, string label,float rearty,int quanitytyInDeck, Card parent)
         {
             _image = image;
             _parent = parent;
             _icon = icon;
             _lable = label;
             _rearty = rearty;
+            _quanitytyInDeck = quanitytyInDeck;
         }
 
         public bool Equals(CardUIModel other)

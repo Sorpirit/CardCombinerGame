@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Models
 {
     [CreateAssetMenu(fileName = "NewComboList", menuName = "CardComboGame/Create Combo list", order = 1)]
-    public partial class ComboPreloader : ScriptableObject
+    public class ComboPreloader : ScriptableObject
     {
 
         [SerializeField] private List<Combo> combos;

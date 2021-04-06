@@ -77,7 +77,7 @@ namespace UI
             icon.enabled = true;
             icon.sprite = model.Image;
             label.text = model.Lable;
-            reartyLabel.text = ((int) (model.Rearty * 100)) + "%";
+            reartyLabel.text = model.QuanitytyInDeck + " " + ((int) (model.Rearty * 100)) + "%";
             CancelAllTweens();
         }
 

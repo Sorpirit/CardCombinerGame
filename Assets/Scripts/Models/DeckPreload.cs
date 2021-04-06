@@ -21,6 +21,7 @@ namespace Models
                 for (int i = 0; i < card.Quantity; i++)
                 {
                     card.Card.Rearty = (float) card.Quantity / cardCount;
+                    card.Card.QuantiyInDeck = card.Quantity;
                     deck.AddCard(card.Card.ExportModel());
                 }
                 
