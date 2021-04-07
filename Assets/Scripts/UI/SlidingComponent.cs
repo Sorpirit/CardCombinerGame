@@ -37,7 +37,7 @@ namespace UI
                 return;
 
             anim = myTransform.DOMove(myTransform.position + Vector3.up * myTransform.rect.height * 2, duration)
-                .SetAutoKill(false).OnComplete(() => Debug.Log("Finish1"));
+                .SetAutoKill(false);
             isHiden = true;
             OnSlideIn?.Invoke();
         }
