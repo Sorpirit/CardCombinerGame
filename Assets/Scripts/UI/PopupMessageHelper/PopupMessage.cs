@@ -15,6 +15,17 @@ public class PopupMessage : MonoBehaviour
     private IPopupMassageEvents _events;
     private IContentProvider _contentProvider;
 
+    public Action<PopupMessage> OnPopup
+    {
+        get => _events.OnCloseComplete;
+        set => _events.OnCloseComplete = value;
+    }
+    public Action<PopupMessage> OnClose
+    {
+        get => _events.OnCloseComplete;
+        set => _events.OnCloseComplete = value;
+    }
+    
     public void Init(IPopupMassageEvents eventsStrategy,IContentProvider contentProvider)
     {
         _events = eventsStrategy;

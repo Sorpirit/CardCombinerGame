@@ -23,13 +23,17 @@ namespace UI
         [SerializeField] private RectTransform cardApearPoint;
         [SerializeField] private RectTransform ComboAnchor;
 
+        [SerializeField] private GameObject endGamePanel;
+        [SerializeField] private TMP_Text endGameScore;
+        [SerializeField] private RectTransform endGameScoreContainer;
+
         [SerializeField] private CombinationUIManager combinationUIManager;
 
-        public event Action<int> OnAddCardToHand;
-        public event Action<int> OnCardDroped;
+        public Action<int> OnAddCardToHand;
+        public Action<int> OnCardDroped;
 
         private bool handIsAnimating;
-        
+
         private CardContainer[] tabel;
         private CardContainer[] hand;
 
@@ -161,6 +165,19 @@ namespace UI
         public void VisualiseCombo(int[] intCardIndexes)
         {
             StartCoroutine(HighlightCombo(intCardIndexes));
+        }
+
+        public void ShowEndGameScreen(int score, bool newHighScore)
+        {
+            endGamePanel.SetActive(true);
+            endGameScore.text = score.ToString();
+            if (newHighScore)
+                endGameScoreContainer.DOShakePosition(2,24);
+        }
+
+        public void ResetView()
+        {
+            combinationUIManager.ResetCobinationUI();
         }
 
         private IEnumerator HighlightCombo(int[] intCardIndexes)

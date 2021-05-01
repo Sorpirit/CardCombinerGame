@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace UI.PopupMessageHelper
 {
@@ -6,5 +7,8 @@ namespace UI.PopupMessageHelper
     {
         void Popup(PopupMessage popup);
         void Close(PopupMessage popup);
+
+        Action<PopupMessage> OnPopupComplete { get; set; }
+        Action<PopupMessage> OnCloseComplete { get; set; }
     }
 }

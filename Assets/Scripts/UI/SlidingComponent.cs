@@ -7,7 +7,9 @@ namespace UI
     public class SlidingComponent : MonoBehaviour
     {
         [SerializeField] private float duration = .5f;
-
+        [SerializeField] private bool startIn;
+        
+            
         public Action OnSlideIn;
         public Action OnSlideOut;
         
@@ -15,6 +17,15 @@ namespace UI
 
         private bool isHiden;
         private Tween anim;
+
+        private void Start()
+        {
+            if (startIn)
+            {
+                SlideIn();
+                anim.Complete();
+            }
+        }
 
         public void Slide()
         {
@@ -51,7 +62,7 @@ namespace UI
                 return;
 
             anim = myTransform.DOMove(myTransform.position - Vector3.up * myTransform.rect.height * 2, duration)
-                .SetAutoKill(false).OnComplete(() => Debug.Log("Finish2"));
+                .SetAutoKill(false);
 
             isHiden = false;
             OnSlideOut?.Invoke();

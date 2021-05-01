@@ -106,11 +106,16 @@ namespace Core
             return true;
         }
 
-        public bool LookForCombinations(out int[] cardCombosIndexes)
+        public bool LookForCombinations(out int[] cardCombosIndexes,out List<CardModel> dropCards)
         {
+            dropCards = new List<CardModel>();
             bool containsCombination = _combinationManager.ContainsCombination(out int points,out cardCombosIndexes, _hand.ToArray());
             if (containsCombination)
             {
+                foreach (var i in cardCombosIndexes)
+                {
+                    dropCards.Add(_hand[i]);
+                }
                 ClearHand(cardCombosIndexes);
                 _score += points;
             }

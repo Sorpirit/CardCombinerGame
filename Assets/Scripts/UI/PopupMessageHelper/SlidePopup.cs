@@ -1,5 +1,7 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UI.PopupMessageHelper
 {
@@ -31,14 +33,24 @@ namespace UI.PopupMessageHelper
         public void Popup(PopupMessage popup)
         {
             popup.Container.localPosition = _slideInPos;
-            popup.Container.DOLocalMove(_targetPos,_duration).SetEase(_ease);
+            popup.Container.DOLocalMove(_targetPos,_duration).SetEase(_ease).OnComplete(() =>
+            {
+                OnPopupComplete?.Invoke(popup);
+            });
         }
 
         public void Close(PopupMessage popup)
         {
             popup.Container.DOLocalMove(_slideOutPos,_duration)
                 .SetEase(_ease)
-                .OnComplete(() => Object.Destroy(popup.gameObject));
+                .OnComplete(() =>
+                {
+                    OnCloseComplete?.Invoke(popup);
+                    Object.Destroy(popup.gameObject);
+                });
         }
+
+        public Action<PopupMessage> OnPopupComplete { get; set; }
+        public Action<PopupMessage> OnCloseComplete { get; set; }
     }
 }

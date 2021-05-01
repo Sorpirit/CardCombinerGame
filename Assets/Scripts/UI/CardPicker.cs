@@ -49,25 +49,19 @@ namespace UI
             var raycastResults = new List<RaycastResult>();
             _eventSystem.RaycastAll(pointerEventData, raycastResults);
 
-            if (raycastResults.Count > 0)
-            {
-                foreach (var result in raycastResults)
-                {
-                    Debug.Log(result.gameObject.layer + " " +
-                              ((targetLayer.value & (1 << result.gameObject.layer)) > 0) + " ");
-                    if ((targetLayer.value & (1 << result.gameObject.layer)) > 0)
-                    {
-                        pickedCard = result.gameObject.GetComponent<CardContainer>();
-                        if (!pickedCard.IsCardEmpty)
-                        {
-                            OnPicked?.Invoke(pickedCard);
-                            return;
-                        }
 
-                        pickedCard = null;
-                    }
-                }
+            if (raycastResults.Count == 0 ||
+                (targetLayer.value & (1 << raycastResults[0].gameObject.layer)) <= 0) return;
+            
+            
+            pickedCard = raycastResults[0].gameObject.GetComponent<CardContainer>();
+            if (!pickedCard.IsCardEmpty)
+            {
+                OnPicked?.Invoke(pickedCard);
+                return;
             }
+
+            pickedCard = null;
         }
 
         private void Drop()

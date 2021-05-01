@@ -1,5 +1,7 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UI.PopupMessageHelper
 {
@@ -8,6 +10,9 @@ namespace UI.PopupMessageHelper
 
         private float _duration;
         private Ease _animEase;
+        
+        public Action<PopupMessage> OnPopupComplete { get; set; }
+        public Action<PopupMessage> OnCloseComplete { get; set; }
 
         public ScalePopup(float duration, Ease animEase)
         {
@@ -19,7 +24,11 @@ namespace UI.PopupMessageHelper
         {
             popup.Container.localScale = Vector3.zero;
             popup.Container.DOScale(Vector3.one, _duration)
-                .SetEase(_animEase);
+                .SetEase(_animEase).OnComplete(() =>
+                {
+                    OnPopupComplete?.Invoke(popup);   
+                });
+            
         }
 
         public void Close(PopupMessage popup)
@@ -28,8 +37,12 @@ namespace UI.PopupMessageHelper
                 .SetEase(_animEase)
                 .OnComplete(() =>
                 {
+                    OnCloseComplete?.Invoke(popup);
                     Object.Destroy(popup.gameObject);
                 });
+            
         }
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI
@@ -27,6 +28,11 @@ namespace UI
                 var parentColumn = i % 2 == 0 ? colOne : colTow;
                 containerStorage[i] = AddRow(i, combos[i], parentColumn);
             }
+        }
+
+        public void ResetCobinationUI()
+        {
+            UnhighlightAll();
         }
 
         public void Highlight(CardUIModel cardUIModel)
